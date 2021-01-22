@@ -1,0 +1,7 @@
+D:\Bai tap\New folder\QLCafe\QLCafe\obj\Debug\QLCafe.TrangChu.resources
+D:\Bai tap\New folder\QLCafe\QLCafe\obj\Debug\QLCafe.QuanLyBanHang.resources
+D:\Bai tap\New folder\QLCafe\QLCafe\obj\Debug\QLCafe.Properties.Resources.resources
+D:\Bai tap\New folder\QLCafe\QLCafe\obj\Debug\QLCafe.QuanLyLoai.resources
+D:\Bai tap\New folder\QLCafe\QLCafe\obj\Debug\QLCafe.QuanLyThucDon.resources
+D:\Bai tap\New folder\QLCafe\QLCafe\obj\Debug\QLCafe.csproj.GenerateResource.cache
+D:\Bai tap\New folder\QLCafe\QLCafe\obj\Debug\QLCafe.csproj.CoreCompileInputs.cache

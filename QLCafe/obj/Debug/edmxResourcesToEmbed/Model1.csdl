@@ -1,0 +1,489 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QLCafeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Chi_Tiết_Phiếu">
+    <Key>
+      <PropertyRef Name="MaPhieu" />
+      <PropertyRef Name="MaMon" />
+    </Key>
+    <Property Name="MaPhieu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MaMon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TenMon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SoLuong" Type="Int32" />
+    <Property Name="ThanhTien" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="NgayTao" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Phiếu" Relationship="Self.FK_Chi_Tiết_Phiếu_Phiếu" FromRole="Chi_Tiết_Phiếu" ToRole="Phiếu" />
+    <NavigationProperty Name="Thực_Đơn" Relationship="Self.FK_Chi_Tiết_Phiếu_Thực_Đơn" FromRole="Chi_Tiết_Phiếu" ToRole="Thực_Đơn" />
+  </EntityType>
+  <EntityType Name="Đăng_Nhập">
+    <Key>
+      <PropertyRef Name="TenDangNhap" />
+    </Key>
+    <Property Name="MaNV" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TenDangNhap" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MatKhau" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Quyen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Nhân_Viên" Relationship="Self.FK_Đăng_Nhập_Nhân_Viên" FromRole="Đăng_Nhập" ToRole="Nhân_Viên" />
+  </EntityType>
+  <EntityType Name="Loại">
+    <Key>
+      <PropertyRef Name="MaLoai" />
+    </Key>
+    <Property Name="MaLoai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TenLoai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Thực_Đơn" Relationship="Self.FK_Thực_Đơn_Loại" FromRole="Loại" ToRole="Thực_Đơn" />
+  </EntityType>
+  <EntityType Name="Nhân_Viên">
+    <Key>
+      <PropertyRef Name="MaNV" />
+    </Key>
+    <Property Name="MaNV" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="HoTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DiaChi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SĐT" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="GioiTinh" Type="Boolean" />
+    <Property Name="Luong" Type="Decimal" Precision="19" Scale="4" />
+    <NavigationProperty Name="Đăng_Nhập" Relationship="Self.FK_Đăng_Nhập_Nhân_Viên" FromRole="Nhân_Viên" ToRole="Đăng_Nhập" />
+  </EntityType>
+  <EntityType Name="Phiếu">
+    <Key>
+      <PropertyRef Name="MaPhieu" />
+    </Key>
+    <Property Name="MaPhieu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MaBan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NgayTao" Type="DateTime" Precision="0" />
+    <Property Name="TinhTien" Type="Boolean" />
+    <Property Name="TongTien" Type="Decimal" Precision="19" Scale="4" />
+    <NavigationProperty Name="Chi_Tiết_Phiếu" Relationship="Self.FK_Chi_Tiết_Phiếu_Phiếu" FromRole="Phiếu" ToRole="Chi_Tiết_Phiếu" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Thực_Đơn">
+    <Key>
+      <PropertyRef Name="MaMon" />
+    </Key>
+    <Property Name="MaMon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TenMon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MaLoai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DVT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DonGia" Type="Decimal" Precision="19" Scale="4" />
+    <NavigationProperty Name="Chi_Tiết_Phiếu" Relationship="Self.FK_Chi_Tiết_Phiếu_Thực_Đơn" FromRole="Thực_Đơn" ToRole="Chi_Tiết_Phiếu" />
+    <NavigationProperty Name="Loại" Relationship="Self.FK_Thực_Đơn_Loại" FromRole="Thực_Đơn" ToRole="Loại" />
+  </EntityType>
+  <Association Name="FK_Chi_Tiết_Phiếu_Phiếu">
+    <End Role="Phiếu" Type="Self.Phiếu" Multiplicity="1" />
+    <End Role="Chi_Tiết_Phiếu" Type="Self.Chi_Tiết_Phiếu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Phiếu">
+        <PropertyRef Name="MaPhieu" />
+      </Principal>
+      <Dependent Role="Chi_Tiết_Phiếu">
+        <PropertyRef Name="MaPhieu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Chi_Tiết_Phiếu_Thực_Đơn">
+    <End Role="Thực_Đơn" Type="Self.Thực_Đơn" Multiplicity="1" />
+    <End Role="Chi_Tiết_Phiếu" Type="Self.Chi_Tiết_Phiếu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Thực_Đơn">
+        <PropertyRef Name="MaMon" />
+      </Principal>
+      <Dependent Role="Chi_Tiết_Phiếu">
+        <PropertyRef Name="MaMon" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Đăng_Nhập_Nhân_Viên">
+    <End Role="Nhân_Viên" Type="Self.Nhân_Viên" Multiplicity="1" />
+    <End Role="Đăng_Nhập" Type="Self.Đăng_Nhập" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Nhân_Viên">
+        <PropertyRef Name="MaNV" />
+      </Principal>
+      <Dependent Role="Đăng_Nhập">
+        <PropertyRef Name="MaNV" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Thực_Đơn_Loại">
+    <End Role="Loại" Type="Self.Loại" Multiplicity="0..1" />
+    <End Role="Thực_Đơn" Type="Self.Thực_Đơn" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Loại">
+        <PropertyRef Name="MaLoai" />
+      </Principal>
+      <Dependent Role="Thực_Đơn">
+        <PropertyRef Name="MaLoai" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QLCafeEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Chi_Tiết_Phiếu" EntityType="Self.Chi_Tiết_Phiếu" />
+    <EntitySet Name="Đăng_Nhập" EntityType="Self.Đăng_Nhập" />
+    <EntitySet Name="Loại" EntityType="Self.Loại" />
+    <EntitySet Name="Nhân_Viên" EntityType="Self.Nhân_Viên" />
+    <EntitySet Name="Phiếu" EntityType="Self.Phiếu" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="Thực_Đơn" EntityType="Self.Thực_Đơn" />
+    <AssociationSet Name="FK_Chi_Tiết_Phiếu_Phiếu" Association="Self.FK_Chi_Tiết_Phiếu_Phiếu">
+      <End Role="Phiếu" EntitySet="Phiếu" />
+      <End Role="Chi_Tiết_Phiếu" EntitySet="Chi_Tiết_Phiếu" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Chi_Tiết_Phiếu_Thực_Đơn" Association="Self.FK_Chi_Tiết_Phiếu_Thực_Đơn">
+      <End Role="Thực_Đơn" EntitySet="Thực_Đơn" />
+      <End Role="Chi_Tiết_Phiếu" EntitySet="Chi_Tiết_Phiếu" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Đăng_Nhập_Nhân_Viên" Association="Self.FK_Đăng_Nhập_Nhân_Viên">
+      <End Role="Nhân_Viên" EntitySet="Nhân_Viên" />
+      <End Role="Đăng_Nhập" EntitySet="Đăng_Nhập" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Thực_Đơn_Loại" Association="Self.FK_Thực_Đơn_Loại">
+      <End Role="Loại" EntitySet="Loại" />
+      <End Role="Thực_Đơn" EntitySet="Thực_Đơn" />
+    </AssociationSet>
+    <FunctionImport Name="del_ban">
+      <Parameter Name="maban" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="del_ChiTietPhieu">
+      <Parameter Name="maP" Mode="In" Type="String" />
+      <Parameter Name="maMon" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="del_DangNhap">
+      <Parameter Name="tenDangNhap" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="del_Kho">
+      <Parameter Name="maMon" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="del_Loai">
+      <Parameter Name="maLoai" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="del_NhanVien">
+      <Parameter Name="maNhanVien" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="del_Phieu">
+      <Parameter Name="maPhieu" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="del_ThucDon">
+      <Parameter Name="MaMon" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="delPhieu_Main">
+      <Parameter Name="maPhieu" Mode="In" Type="String" />
+      <Parameter Name="maBan" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="get_ban">
+      <Parameter Name="maBan" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="get_ChiTietPhieu" ReturnType="Collection(QLCafeModel.get_ChiTietPhieu_Result)">
+      <Parameter Name="MaP" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="get_Kho">
+      <Parameter Name="MaMon" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="get_Loai" ReturnType="Collection(QLCafeModel.get_Loai_Result)">
+      <Parameter Name="MaLoai" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="get_NhanVien" ReturnType="Collection(QLCafeModel.get_NhanVien_Result)" />
+    <FunctionImport Name="get_Phieu" ReturnType="Collection(QLCafeModel.get_Phieu_Result)">
+      <Parameter Name="maPhieu" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="get_ThucDon" ReturnType="Collection(QLCafeModel.get_ThucDon_Result)">
+      <Parameter Name="maMon" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="getall_ban" />
+    <FunctionImport Name="getall_ChiTietPhieu" ReturnType="Collection(QLCafeModel.getall_ChiTietPhieu_Result)" />
+    <FunctionImport Name="getall_Kho" />
+    <FunctionImport Name="getall_Loai" ReturnType="Collection(QLCafeModel.getall_Loai_Result)" />
+    <FunctionImport Name="getall_NhanVien" ReturnType="Collection(QLCafeModel.getall_NhanVien_Result)" />
+    <FunctionImport Name="getall_Phieu" ReturnType="Collection(QLCafeModel.getall_Phieu_Result)" />
+    <FunctionImport Name="getall_ThucDon" ReturnType="Collection(QLCafeModel.getall_ThucDon_Result)" />
+    <FunctionImport Name="getCTP_Main" ReturnType="Collection(QLCafeModel.getCTP_Main_Result)">
+      <Parameter Name="maphieu" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="getDangNhap" ReturnType="Collection(QLCafeModel.getDangNhap_Result)">
+      <Parameter Name="TenDangNhap" Mode="In" Type="String" />
+      <Parameter Name="MatKhau" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="getPhieu_Main" ReturnType="Collection(QLCafeModel.getPhieu_Main_Result)" />
+    <FunctionImport Name="getTongTien_Main" ReturnType="Collection(Decimal)">
+      <Parameter Name="maPhieu" Mode="In" Type="String" />
+      <Parameter Name="maBan" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="getThucDon_Loai" ReturnType="Collection(QLCafeModel.getThucDon_Loai_Result)">
+      <Parameter Name="maLoai" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="ins_Ban">
+      <Parameter Name="maBan" Mode="In" Type="String" />
+      <Parameter Name="tenBan" Mode="In" Type="String" />
+      <Parameter Name="soluong" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ins_CTP">
+      <Parameter Name="maPhieu" Mode="In" Type="String" />
+      <Parameter Name="maMon" Mode="In" Type="String" />
+      <Parameter Name="tenMon" Mode="In" Type="String" />
+      <Parameter Name="soluong" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ins_DangNhap">
+      <Parameter Name="maNV" Mode="In" Type="String" />
+      <Parameter Name="TenDangNhap" Mode="In" Type="String" />
+      <Parameter Name="MatKhau" Mode="In" Type="String" />
+      <Parameter Name="quyen" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="ins_Kho">
+      <Parameter Name="maMon" Mode="In" Type="String" />
+      <Parameter Name="tenMon" Mode="In" Type="String" />
+      <Parameter Name="soluong" Mode="In" Type="Int32" />
+      <Parameter Name="DVT" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="ins_loai">
+      <Parameter Name="maloai" Mode="In" Type="String" />
+      <Parameter Name="tenloai" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="ins_NhanVien">
+      <Parameter Name="maNV" Mode="In" Type="String" />
+      <Parameter Name="hoten" Mode="In" Type="String" />
+      <Parameter Name="diachi" Mode="In" Type="String" />
+      <Parameter Name="sdt" Mode="In" Type="Int32" />
+      <Parameter Name="gioitinh" Mode="In" Type="Boolean" />
+      <Parameter Name="luong" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="ins_Phieu">
+      <Parameter Name="maP" Mode="In" Type="String" />
+      <Parameter Name="maBan" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="ins_ThucDon">
+      <Parameter Name="maMon" Mode="In" Type="String" />
+      <Parameter Name="tenMon" Mode="In" Type="String" />
+      <Parameter Name="maLoai" Mode="In" Type="String" />
+      <Parameter Name="DVT" Mode="In" Type="String" />
+      <Parameter Name="dongia" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(QLCafeModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(QLCafeModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <FunctionImport Name="ThongKeNgay_TheoMon" ReturnType="Collection(QLCafeModel.ThongKeNgay_TheoMon_Result)">
+      <Parameter Name="tenmon" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="ThongKeTheoMon" ReturnType="Collection(QLCafeModel.ThongKeTheoMon_Result)" />
+    <FunctionImport Name="ThongKeTheoMon_TheoNgay" ReturnType="Collection(QLCafeModel.ThongKeTheoMon_TheoNgay_Result)">
+      <Parameter Name="ngaytao" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="ThongKeTheoNgay" ReturnType="Collection(QLCafeModel.ThongKeTheoNgay_Result)" />
+    <FunctionImport Name="upd_Ban">
+      <Parameter Name="maBan" Mode="In" Type="String" />
+      <Parameter Name="tenBan" Mode="In" Type="String" />
+      <Parameter Name="songuoi" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="upd_CTP">
+      <Parameter Name="maPhieu" Mode="In" Type="String" />
+      <Parameter Name="maMon" Mode="In" Type="String" />
+      <Parameter Name="tenMon" Mode="In" Type="String" />
+      <Parameter Name="soluong" Mode="In" Type="Int32" />
+      <Parameter Name="thanhtien" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="upd_Kho">
+      <Parameter Name="maMon" Mode="In" Type="String" />
+      <Parameter Name="tenMon" Mode="In" Type="String" />
+      <Parameter Name="soluong" Mode="In" Type="Int32" />
+      <Parameter Name="DVT" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="upd_Loai">
+      <Parameter Name="maLoai" Mode="In" Type="String" />
+      <Parameter Name="tenLoai" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="upd_NhanVien">
+      <Parameter Name="maNV" Mode="In" Type="String" />
+      <Parameter Name="hoten" Mode="In" Type="String" />
+      <Parameter Name="diachi" Mode="In" Type="String" />
+      <Parameter Name="SDT" Mode="In" Type="Int32" />
+      <Parameter Name="gioitinh" Mode="In" Type="Boolean" />
+      <Parameter Name="luong" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="upd_Phieu">
+      <Parameter Name="maPhieu" Mode="In" Type="String" />
+      <Parameter Name="maBan" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="upd_ThucDon">
+      <Parameter Name="maMon" Mode="In" Type="String" />
+      <Parameter Name="tenmon" Mode="In" Type="String" />
+      <Parameter Name="maLoai" Mode="In" Type="String" />
+      <Parameter Name="DVT" Mode="In" Type="String" />
+      <Parameter Name="dongia" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="getbetween_1" ReturnType="Collection(QLCafeModel.getbetween_1_Result)">
+      <Parameter Name="ngaydau" Mode="In" Type="DateTime" />
+      <Parameter Name="ngaycuoi" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="getbetween_2" ReturnType="Collection(QLCafeModel.getbetween_2_Result)">
+      <Parameter Name="ngaydau" Mode="In" Type="DateTime" />
+      <Parameter Name="ngaycuoi" Mode="In" Type="DateTime" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="get_ChiTietPhieu_Result">
+    <Property Type="String" Name="MaPhieu" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="MaMon" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="TenMon" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="SoLuong" Nullable="true" />
+    <Property Type="Decimal" Name="ThanhTien" Nullable="true" Precision="19" />
+    <Property Type="DateTime" Name="NgayTao" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="get_Loai_Result">
+    <Property Type="String" Name="MaLoai" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="TenLoai" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="get_NhanVien_Result">
+    <Property Type="String" Name="MaNV" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="HoTen" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="DiaChi" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="SĐT" Nullable="true" MaxLength="15" />
+    <Property Type="Boolean" Name="GioiTinh" Nullable="true" />
+    <Property Type="Decimal" Name="Luong" Nullable="true" Precision="19" />
+  </ComplexType>
+  <ComplexType Name="get_Phieu_Result">
+    <Property Type="String" Name="MaPhieu" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="MaBan" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="NgayTao" Nullable="true" />
+    <Property Type="Boolean" Name="TinhTien" Nullable="true" />
+    <Property Type="Decimal" Name="TongTien" Nullable="true" Precision="19" />
+  </ComplexType>
+  <ComplexType Name="get_ThucDon_Result">
+    <Property Type="String" Name="MaMon" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="TenMon" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="MaLoai" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="DVT" Nullable="true" MaxLength="50" />
+    <Property Type="Decimal" Name="DonGia" Nullable="true" Precision="19" />
+  </ComplexType>
+  <ComplexType Name="getall_ChiTietPhieu_Result">
+    <Property Type="String" Name="MaPhieu" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="MaMon" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="TenMon" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="SoLuong" Nullable="true" />
+    <Property Type="Decimal" Name="ThanhTien" Nullable="true" Precision="19" />
+    <Property Type="DateTime" Name="NgayTao" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="getall_Loai_Result">
+    <Property Type="String" Name="MaLoai" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="TenLoai" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="getall_NhanVien_Result">
+    <Property Type="String" Name="MaNV" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="HoTen" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="DiaChi" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="SĐT" Nullable="true" MaxLength="15" />
+    <Property Type="Boolean" Name="GioiTinh" Nullable="true" />
+    <Property Type="Decimal" Name="Luong" Nullable="true" Precision="19" />
+  </ComplexType>
+  <ComplexType Name="getall_Phieu_Result">
+    <Property Type="String" Name="MaPhieu" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="MaBan" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="NgayTao" Nullable="true" />
+    <Property Type="Boolean" Name="TinhTien" Nullable="true" />
+    <Property Type="Decimal" Name="TongTien" Nullable="true" Precision="19" />
+  </ComplexType>
+  <ComplexType Name="getall_ThucDon_Result">
+    <Property Type="String" Name="MaMon" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="TenMon" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="MaLoai" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="DVT" Nullable="true" MaxLength="50" />
+    <Property Type="Decimal" Name="DonGia" Nullable="true" Precision="19" />
+  </ComplexType>
+  <ComplexType Name="getCTP_Main_Result">
+    <Property Type="String" Name="MaPhieu" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="MaMon" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="TenMon" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="SoLuong" Nullable="true" />
+    <Property Type="Decimal" Name="ThanhTien" Nullable="true" Precision="19" />
+    <Property Type="DateTime" Name="NgayTao" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="getDangNhap_Result">
+    <Property Type="String" Name="MaNV" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="TenDangNhap" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="MatKhau" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Quyen" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="getPhieu_Main_Result">
+    <Property Type="String" Name="MaPhieu" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="MaBan" Nullable="true" MaxLength="50" />
+    <Property Type="Decimal" Name="TongTien" Nullable="true" Precision="19" />
+  </ComplexType>
+  <ComplexType Name="getThucDon_Loai_Result">
+    <Property Type="String" Name="MaMon" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="TenMon" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="MaLoai" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="DVT" Nullable="true" MaxLength="50" />
+    <Property Type="Decimal" Name="DonGia" Nullable="true" Precision="19" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="ThongKeNgay_TheoMon_Result">
+    <Property Type="DateTime" Name="NgayTao" Nullable="true" />
+    <Property Type="Int32" Name="Số_lượng" Nullable="true" />
+    <Property Type="Decimal" Name="Doanh_thu" Nullable="true" Precision="19" />
+  </ComplexType>
+  <ComplexType Name="ThongKeTheoMon_Result">
+    <Property Type="String" Name="TenMon" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="Số_Lượng" Nullable="true" />
+    <Property Type="Decimal" Name="Doanh_Thu" Nullable="true" Precision="19" />
+  </ComplexType>
+  <ComplexType Name="ThongKeTheoMon_TheoNgay_Result">
+    <Property Type="String" Name="TenMon" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="Số_lượng" Nullable="true" />
+    <Property Type="Decimal" Name="Doanh_Thu" Nullable="true" Precision="19" />
+  </ComplexType>
+  <ComplexType Name="ThongKeTheoNgay_Result">
+    <Property Type="DateTime" Name="NgayTao" Nullable="true" />
+    <Property Type="Decimal" Name="Doanh_Thu" Nullable="true" Precision="19" />
+  </ComplexType>
+  <ComplexType Name="getbetween_1_Result">
+    <Property Type="DateTime" Name="NgayTao" Nullable="true" />
+    <Property Type="Decimal" Name="Doanh_thu" Nullable="true" Precision="19" />
+  </ComplexType>
+  <ComplexType Name="getbetween_2_Result">
+    <Property Type="String" Name="TenMon" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="Số_lượng" Nullable="true" />
+    <Property Type="Decimal" Name="Doanh_thu" Nullable="true" Precision="19" />
+  </ComplexType>
+</Schema>
